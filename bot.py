@@ -1,16 +1,19 @@
 import os
-from telegram.ext import Application, MessageHandler, filters
+import telegram
+from telegram.ext import Updater, MessageHandler, Filters
 
 BOT_TOKEN = os.environ.get("BOT_TOKEN")
 
-async def echo(update, context):
-    await update.message.reply_text("Привет! Я работаю!")
+def echo(update, context):
+    update.message.reply_text("Привет! Я работаю!")
 
 def main():
-    application = Application.builder().token(BOT_TOKEN).build()
-    application.add_handler(MessageHandler(filters.TEXT, echo))
+    updater = Updater(BOT_TOKEN, use_context=True)
+    dp = updater.dispatcher
+    dp.add_handler(MessageHandler(Filters.text, echo))
     print("Bot started!")
-    application.run_polling()
+    updater.start_polling()
+    updater.idle()
 
 if __name__ == "__main__":
     main()
