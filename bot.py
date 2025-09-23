@@ -1,10 +1,9 @@
 import os
-from telegram import Update
-from telegram.ext import Application, MessageHandler, filters, ContextTypes
+from telegram.ext import Application, MessageHandler, filters
 
 BOT_TOKEN = os.environ.get("BOT_TOKEN")
 
-async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def echo(update, context):
     await update.message.reply_text("Привет! Я работаю!")
 
 def main():
